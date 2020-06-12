@@ -52,10 +52,12 @@ resource "azurerm_windows_virtual_machine" "vm" {
     name                = "${var.app_name}-vm"
     location            = data.azurerm_resource_group.rg.location
     resource_group_name = data.azurerm_resource_group.rg.name
-    size                = "NV4as_v4"
+    size                = "Standard_NC6_Promo"
     admin_username      = "adminuser"
     admin_password      = var.admin_password
-    priority            = "Spot"
+    #priority            = "Spot"
+    #eviction_policy     = "Deallocate"
+
     network_interface_ids = [
         azurerm_network_interface.nic.id,
     ]

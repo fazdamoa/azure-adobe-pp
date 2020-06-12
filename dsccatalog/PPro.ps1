@@ -68,4 +68,5 @@ Configuration PPro
             GetScript = { @{ Result = (Get-Volume | where FileSystemLabel -eq "PPRO 2019") } }
         }    
     }
+}
 
