@@ -13,6 +13,13 @@ data "azurerm_subnet" "sn" {
     resource_group_name  = var.vnet_rg
 }
 
+resource "azurerm_public_ip" "pip" {
+    name                = "${var.app_name}-pip"
+    location                    = data.azurerm_resource_group.rg.location
+    resource_group_name         = data.azurerm_resource_group.rg.name
+    allocation_method   = "Dynamic"
+}
+
 resource "azurerm_network_interface" "nic" {
     name                        = "${var.app_name}-nic"
     location                    = data.azurerm_resource_group.rg.location
@@ -22,7 +29,9 @@ resource "azurerm_network_interface" "nic" {
         name                          = "internal"
         subnet_id                     = data.azurerm_subnet.sn.id
         private_ip_address_allocation = "Dynamic"
+        public_ip_address_id          = azurerm_public_ip.pip.id
     }
+
 }
 
 resource "azurerm_network_security_group" "nsg" {
@@ -86,12 +95,25 @@ resource "azurerm_virtual_machine_extension" "extension" {
     settings = jsonencode({
         "wmfVersion" : "latest",
         "configuration" : {
-            "url" : "https://raw.githubusercontent.com/fazdamoa/azure-adobe-pp/master/dsccatalog/ppro.zip",
-            "script" : "ppro.ps1",
+            "url" : "https://raw.githubusercontent.com/fazdamoa/azure-adobe-pp/master/dsccatalog/PPro.zip",
+            "script" : "PPro.ps1",
             "function" : "PPro"
         },
         "privacy" : {
             "dataCollection" : "Disable"
         }
     })
+}
+
+resource "azurerm_dev_test_global_vm_shutdown_schedule" "shutdown" {
+    virtual_machine_id = azurerm_windows_virtual_machine.vm.id
+    location           = data.azurerm_resource_group.rg.location
+    enabled            = true
+
+    daily_recurrence_time = "2200"
+    timezone             = "GMT Standard Time"
+
+    notification_settings {
+        enabled         = false
+    }
 }
