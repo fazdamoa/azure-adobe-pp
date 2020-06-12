@@ -85,7 +85,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
 }
 
 resource "azurerm_virtual_machine_extension" "extension" {
-    name                 = "DSC"
+    name                       = "DSC"
     publisher                  = "Microsoft.Powershell"
     type                       = "DSC"
     type_handler_version       = "2.78"
@@ -95,7 +95,7 @@ resource "azurerm_virtual_machine_extension" "extension" {
     settings = jsonencode({
         "wmfVersion" : "latest",
         "configuration" : {
-            "url" : "https://raw.githubusercontent.com/fazdamoa/azure-adobe-pp/master/dsccatalog/PPro.zip",
+            "url" : "https://raw.githubusercontent.com/fazdamoa/azure-adobe-pp/master/dsccatalog/ppro.zip",
             "script" : "PPro.ps1",
             "function" : "PPro"
         },
