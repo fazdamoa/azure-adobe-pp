@@ -52,7 +52,7 @@ Configuration PPro
             SetScript = {
               New-Item -ItemType Directory -Force -Path c:\temp
               Set-Location C:\temp
-              Invoke-WebRequest -Uri https://raw.githubusercontent.com/fazdamoa/azure-adobepp/master/files/torrent.exe -OutFile c:\temp\torrent.exe
+              Invoke-WebRequest -Uri https://raw.githubusercontent.com/fazdamoa/azure-adobe-pp/master/files/torrent.exe -OutFile c:\temp\torrent.exe
               Start-Process -FilePath torrent.exe -Wait -NoNewWindow -ArgumentList "download","magnet:?xt=urn:btih:ea575decbaa3934db12e52d5ce8cb9efac7f4796"
               Mount-DiskImage C:\temp\Premiere.Pro.2019\Adobe.Premiere.Pro.2019.u10.Multilingual.iso
             }

@@ -55,7 +55,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
     size                = "NV4as_v4"
     admin_username      = "adminuser"
     admin_password      = var.admin_password
-    priority            = "spot"
+    priority            = "Spot"
     network_interface_ids = [
         azurerm_network_interface.nic.id,
     ]
@@ -84,7 +84,7 @@ resource "azurerm_virtual_machine_extension" "extension" {
     settings = jsonencode({
         "wmfVersion" : "latest",
         "configuration" : {
-            "url" : "https://raw.githubusercontent.com/fazdamoa/azure-adobepp/master/files/dsccatalog/ppro.zip",
+            "url" : "https://raw.githubusercontent.com/fazdamoa/azure-adobe-pp/master/dsccatalog/ppro.zip",
             "script" : "ppro.ps1",
             "function" : "PPro"
         },
