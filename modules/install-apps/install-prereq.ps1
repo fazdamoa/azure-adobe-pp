@@ -9,7 +9,7 @@ Write-Host "IE Enhanced Security Configuration (ESC) has been disabled." -Foregr
 # Install Chocolatey
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Set-ExecutionPolicy Bypass -Scope Process -Force
-iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
+Invoke-WebRequest https://chocolatey.org/install.ps1 -UseBasicParsing | Invoke-Expression
 
 # Install useful apps (Drive apps for storing data)
 $AppsToInstall = "GoogleChrome 7zip googledrive onedrive"

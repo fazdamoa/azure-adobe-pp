@@ -91,7 +91,7 @@ resource "azurerm_virtual_machine_extension" "extension" {
   type_handler_version = "1.10"
 
   settings = jsonencode({
-      "commandToExecute": "powershell.exe -command './install-vm.ps1' ${var.apps_to_install}",
+      "commandToExecute": "powershell.exe -command \"./install-vm.ps1 ${var.apps_to_install}\"",
       "fileUris": [
           "https://raw.githubusercontent.com/fazdamoa/azure-adobe-pp/master/modules/install-apps/install-vm.ps1",
           "https://raw.githubusercontent.com/fazdamoa/azure-adobe-pp/master/modules/install-apps/install-prereq.ps1",
