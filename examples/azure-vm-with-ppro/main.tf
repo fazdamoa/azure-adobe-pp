@@ -4,7 +4,7 @@ provider "azurerm" {
 }
 
 module "azure-vm" {
-    source = "github.com/fazdamoa/azure-adobe-pp/master/modules/azure-vm"
+    source = "github.com/fazdamoa/azure-adobe-pp//modules/azure-vm"
     location = "UK South"
     vnet_rg = "fazthebro-vnet"
     subnet_name = "default"
