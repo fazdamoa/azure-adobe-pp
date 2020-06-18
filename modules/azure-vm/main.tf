@@ -86,9 +86,9 @@ resource "azurerm_windows_virtual_machine" "vm" {
 resource "azurerm_virtual_machine_extension" "extension" {
   name                 = "installapps"
   virtual_machine_id   = azurerm_windows_virtual_machine.vm.id
-  publisher            = "Microsoft.Azure.Extensions"
-  type                 = "CustomScript"
-  type_handler_version = "2.0"
+  publisher            = "Microsoft.Compute"
+  type                 = "CustomScriptExtension"
+  type_handler_version = "1.10"
 
   settings = jsonencode({
       "commandToExecute": "powershell.exe -command './install-vm.ps1' ${var.apps_to_install}",
