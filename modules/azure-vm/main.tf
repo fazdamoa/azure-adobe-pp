@@ -28,6 +28,7 @@ resource "azurerm_network_interface" "nic" {
     }
 }
 
+# Get IP of execution machine for RDP whitelist
 data "http" "myip" {
   url = "http://ipv4.icanhazip.com"
 }
@@ -59,7 +60,7 @@ resource "azurerm_windows_virtual_machine" "vm" {
     name                = "${var.app_name}-vm"
     location            = data.azurerm_resource_group.rg.location
     resource_group_name = data.azurerm_resource_group.rg.name
-    size                = "Standard_NC6_Promo"
+    size                = var.vm_size
     admin_username      = "adminuser"
     admin_password      = var.admin_password
     #priority            = "Spot"
@@ -80,6 +81,23 @@ resource "azurerm_windows_virtual_machine" "vm" {
         sku       = "2019-Datacenter"
         version   = "latest"
     }
+}
+
+resource "azurerm_virtual_machine_extension" "extension" {
+  name                 = "installapps"
+  virtual_machine_id   = azurerm_windows_virtual_machine.vm.id
+  publisher            = "Microsoft.Azure.Extensions"
+  type                 = "CustomScript"
+  type_handler_version = "2.0"
+
+  settings = jsonencode({
+      "commandToExecute": "powershell.exe -command './install-vm.ps1' ${var.apps_to_install}",
+      "fileUris": [
+          "https://raw.githubusercontent.com/fazdamoa/azure-adobe-pp/master/modules/install-apps/install-vm.ps1",
+          "https://raw.githubusercontent.com/fazdamoa/azure-adobe-pp/master/modules/install-apps/install-prereq.ps1",
+          "https://raw.githubusercontent.com/fazdamoa/azure-adobe-pp/master/modules/install-apps/get-adobe-apps.ps1"
+      ]
+  })
 }
 
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "shutdown" {

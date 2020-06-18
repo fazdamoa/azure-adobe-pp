@@ -11,6 +11,6 @@ Write-Host "IE Enhanced Security Configuration (ESC) has been disabled." -Foregr
 Set-ExecutionPolicy Bypass -Scope Process -Force
 iwr https://chocolatey.org/install.ps1 -UseBasicParsing | iex
 
-# Install useful apps
-$AppsToInstall = "GoogleChrome 7zip"
-start-process powershell -ArgumentList "choco install $AppsToInstall" -NoNewWindow
+# Install useful apps (Drive apps for storing data)
+$AppsToInstall = "GoogleChrome 7zip googledrive onedrive"
+start-process powershell -ArgumentList "choco install $AppsToInstall -y" -NoNewWindow
