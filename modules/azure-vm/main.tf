@@ -46,7 +46,7 @@ resource "azurerm_network_security_group" "nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "3389"
-    source_address_prefix      = ["${chomp(data.http.myip.body)}/32"]
+    source_address_prefix      = "${chomp(data.http.myip.body)}/32"
     destination_address_prefix = "*"
   }
 }
@@ -101,7 +101,7 @@ resource "azurerm_virtual_machine_extension" "extension" {
 }
 
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "shutdown" {
-    virtual_machine_id = var.vm_id
+    virtual_machine_id = azurerm_windows_virtual_machine.vm.id
     location           = var.location
     enabled            = true
 

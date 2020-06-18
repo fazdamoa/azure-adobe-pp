@@ -10,7 +10,7 @@ variable "vm_size" {
     description = "Default value is GPU promo." 
 }
 variable "apps_to_install" { 
-    type = "string"
+    type = string
     description = "Must be: PPro19"
 }
 variable "shutdown_timezone" { default = "GMT Standard Time" }
