@@ -15,3 +15,7 @@ module "azure-vm" {
     shutdown_timezone = "GMT Standard Time"
     shutdown_time = "2200"
 }
+
+output "pip" {
+  value = module.azure-vm.public_ip
+}
