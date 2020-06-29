@@ -20,5 +20,5 @@ module "azure-vm" {
 }
 
 output "pip" {
-  value = module.azure-vm.public_ip
+  value = module.azure-vm.public_ip_address
 }
