@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestTerraformAwsHelloWorldExample(t *testing.T) {
+func TestTerraform(t *testing.T) {
 	t.Parallel()
 
 	terraformOptions := &terraform.Options{
