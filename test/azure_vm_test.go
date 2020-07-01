@@ -39,7 +39,7 @@ func TestTerraform(t *testing.T) {
 		panic(err)
 	}
 
-	assert.Nil(t, server)
+	assert.Nil(t, err)
 	// close the server
 	defer server.Close()
 
